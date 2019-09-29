@@ -1,0 +1,16 @@
+.error-text {
+    color: red;
+}
+
+a {
+    color: #0056b3 !important;
+    cursor: pointer;
+}
+
+.btn {
+    margin-right: 10px;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}

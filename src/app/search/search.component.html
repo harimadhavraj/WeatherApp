@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="col-12">
+        <h2>Weather Finder</h2>
+    </div>
+    <div class="col-12">
+        <form name="searchForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <div class="col-3 form-group">
+                <label for="location" class="control-label">Enter city name:</label>
+                <input type="text" class="form-control" pattern="[a-zA-Z]*"
+                name="location" id="location" [(ngModel)]="searchInput" #location="ngModel" />
+                <span *ngIf="location.invalid && location.errors.pattern">Only alphabets are allowed!</span>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" [disabled]="!searchInput || location.invalid" type="submit">Search</button>
+                <button class="btn btn-default" type="reset">Clear</button>
+            </div>
+            
+        </form>
+    </div>
+    <hr *ngIf="loaded"/>
+    <div class="col-12" *ngIf="searchResults && searchResults.length > 0">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let cityInfo of searchResults">
+                    <td>{{cityInfo.city}}</td>
+                    <td>{{cityInfo.country}}</td>
+                    <td><a (click)="showCityWeather(cityInfo, weatherModal)">Show details</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-12" *ngIf="!searchResults.length && loaded">
+        <h4 class="error-text">No search results available</h4>
+    </div>
+</div>
+
+<ng-template #weatherModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Weather Info</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide();selectedCity=null;loaded=false;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" *ngIf="!selectedCity.errorInfo">
+        <h5>{{selectedCity.name}}, {{selectedCity.country}}</h5>
+        <p>
+            <strong>Temperate:</strong>&nbsp;{{selectedCity.weather.app_temp}}&nbsp;&deg;Celcius
+        </p>
+        <div>
+            <h4>Forecast</h4>
+            <p>{{selectedCity.weather.weather.description}}</p>
+        </div>
+    </div>
+    <div class="modal-body" *ngIf="selectedCity.errorInfo">
+        <h5 class="error-text">{{selectedCity.errorInfo}}</h5>
+    </div>
+</ng-template>
