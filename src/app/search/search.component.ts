@@ -47,6 +47,11 @@ export class SearchComponent implements OnInit {
       this.selectedCity.errorInfo = "The Weather information for the selected city is not available";
       this.modalRef = this.modalService.show(template);
     }
+  }
 
+  resetForm() {
+    this.selectedCity = null;
+    this.loaded = false;
+    this.searchResults = [];
   }
 }

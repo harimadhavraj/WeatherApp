@@ -12,7 +12,7 @@
             </div>
             <div class="col-12">
                 <button class="btn btn-primary" [disabled]="!searchInput || location.invalid" type="submit">Search</button>
-                <button class="btn btn-default" type="reset">Clear</button>
+                <button class="btn btn-default" type="reset" (click)="resetForm()">Clear</button>
             </div>
             
         </form>
@@ -46,7 +46,7 @@
 <ng-template #weatherModal>
     <div class="modal-header">
         <h4 class="modal-title pull-left">Weather Info</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide();selectedCity=null;loaded=false;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide();resetForm();">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
