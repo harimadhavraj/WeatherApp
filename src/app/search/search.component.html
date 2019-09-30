@@ -17,7 +17,7 @@
             
         </form>
     </div>
-    <hr *ngIf="loaded"/>
+
     <div class="col-12" *ngIf="searchResults && searchResults.length > 0">
         <table class="table">
             <thead>
@@ -44,13 +44,13 @@
 </div>
 
 <ng-template #weatherModal>
-    <div class="modal-header">
+    <div class="modal-header" *ngIf="selectedCity">
         <h4 class="modal-title pull-left">Weather Info</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide();resetForm();">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="resetForm();">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body" *ngIf="!selectedCity.errorInfo">
+    <div class="modal-body" *ngIf="selectedCity && !selectedCity.errorInfo">
         <h5>{{selectedCity.name}}, {{selectedCity.country}}</h5>
         <p>
             <strong>Temperate:</strong>&nbsp;{{selectedCity.weather.app_temp}}&nbsp;&deg;Celcius
@@ -60,7 +60,7 @@
             <p>{{selectedCity.weather.weather.description}}</p>
         </div>
     </div>
-    <div class="modal-body" *ngIf="selectedCity.errorInfo">
+    <div class="modal-body" *ngIf="selectedCity && selectedCity.errorInfo">
         <h5 class="error-text">{{selectedCity.errorInfo}}</h5>
     </div>
 </ng-template>

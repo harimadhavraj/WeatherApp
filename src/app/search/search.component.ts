@@ -23,7 +23,6 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmit(searchForm: NgForm) {
-    console.log(searchForm);
     if(searchForm.valid) {
       this.weatherService.getCityInfo(this.searchInput)
       .subscribe(data => {
@@ -50,8 +49,8 @@ export class SearchComponent implements OnInit {
   }
 
   resetForm() {
+    this.modalRef.hide();
     this.selectedCity = null;
     this.loaded = false;
-    this.searchResults = [];
   }
 }
