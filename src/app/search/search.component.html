@@ -3,15 +3,15 @@
         <h2>Weather Finder</h2>
     </div>
     <div class="col-12">
-        <form name="searchForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <form name="searchForm" #f="ngForm">
             <div class="col-3 form-group">
                 <label for="location" class="control-label">Enter city name:</label>
-                <input type="text" class="form-control" pattern="[a-zA-Z]*"
+                <input type="text" class="form-control" pattern="[a-zA-Z]*" (keyup)="onValueChange()"
                 name="location" id="location" [(ngModel)]="searchInput" #location="ngModel" />
                 <span *ngIf="location.invalid && location.errors.pattern">Only alphabets are allowed!</span>
             </div>
             <div class="col-12">
-                <button class="btn btn-primary" [disabled]="!searchInput || location.invalid" type="submit">Search</button>
+                <!-- <button class="btn btn-primary" [disabled]="!searchInput || location.invalid" type="submit">Search</button> -->
                 <button class="btn btn-default" type="reset" (click)="resetForm()">Clear</button>
             </div>
             
@@ -32,7 +32,10 @@
                 <tr *ngFor="let cityInfo of searchResults">
                     <td>{{cityInfo.city}}</td>
                     <td>{{cityInfo.country}}</td>
-                    <td><a (click)="showCityWeather(cityInfo, weatherModal)">Show details</a></td>
+                    <td>
+                        <a (click)="showCityWeather(cityInfo, weatherModal)" *ngIf="cityInfo.hasInfo">Show details</a>
+                        <span *ngIf="!cityInfo.hasInfo" class="error-text">No information available</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -43,10 +46,15 @@
     </div>
 </div>
 
+<div *ngIf="showblocker" class="show-blocker">
+    <div class="bg-div"></div>
+    <span>Loading...</span>
+</div>
+
 <ng-template #weatherModal>
     <div class="modal-header" *ngIf="selectedCity">
         <h4 class="modal-title pull-left">Weather Info</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="resetForm();">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide();">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>

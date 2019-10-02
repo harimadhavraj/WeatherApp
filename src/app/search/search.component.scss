@@ -25,3 +25,24 @@ table {
         border-top: none !important;
     }
 }
+
+.show-blocker {
+    .bg-div {
+        background: grey;
+        height: 100%;
+        width: 100%;
+        z-index: 2;
+        opacity: 0.4;
+        position: absolute;
+        display: flex;
+        top: 0;
+        justify-content: center;
+    }
+
+    span {
+        position: absolute;
+        top: 50%;
+        z-index: 3;
+        left: 50%;
+    }
+}
