@@ -43,6 +43,11 @@ export class SearchComponent implements OnInit {
         let city = CityList.find(city => city['city_name'].toLowerCase() == cityInfo.city.toLowerCase());
         cityInfo.hasInfo = city ? true : false;
       });
+
+      data.sort( (curr, next) => {
+        return curr['hasInfo'] == next['hasInfo'] ? 0 : ( curr['hasInfo'] ? -1 : 1 );
+      });
+      
       this.searchResults = data;
     });
   }

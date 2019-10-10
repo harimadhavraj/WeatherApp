@@ -67,6 +67,10 @@
             <h4>Forecast</h4>
             <p>{{selectedCity.weather.weather.description}}</p>
         </div>
+        <p><strong>TimeZone: </strong>{{selectedCity.weather.timezone}}</p>
+        <p><strong>Wind Direction: </strong>{{selectedCity.weather.wind_dir + ' ' + selectedCity.weather.wind_cdir_full}}</p>
+        <p><strong>Sunrise Time: </strong>{{selectedCity.weather.sunrise}}</p>
+        <p><strong>Sunset Time: </strong>{{selectedCity.weather.sunset}}</p>
     </div>
     <div class="modal-body" *ngIf="selectedCity && selectedCity.errorInfo">
         <h5 class="error-text">{{selectedCity.errorInfo}}</h5>
